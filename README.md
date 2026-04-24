@@ -22,22 +22,24 @@
 # 1. 下载部署文件
 curl -O https://raw.githubusercontent.com/ydddp/jb-proxy-r/main/docker-compose.yml
 
-# 2. 设置管理面板密码
-echo "ADMIN_PASSWORD=your_password" > .env
-
-# 3. 启动
+# 2. 启动
 docker compose up -d
 ```
 
-访问 `http://<你的服务器IP>` 进入管理面板。
+访问 `http://<你的服务器IP>` 进入管理面板，使用默认密码 **`admin123`** 登录，然后在面板的「修改密码」处改为你自己的密码。
+
+> 如果想在部署时预设密码，启动前先创建 `.env`：
+> ```bash
+> echo "ADMIN_PASSWORD=your_password" > .env
+> ```
 
 ## 环境变量
 
-| 变量             | 必填 | 说明                           |
-| ---------------- | ---- | ------------------------------ |
-| `ADMIN_PASSWORD` | 推荐 | 管理面板登录密码               |
-| `SESSION_SECRET` | 否   | 会话签名密钥，未设置则自动生成 |
-| `HTTP_PORT`      | 否   | 对外端口，默认 `80`            |
+| 变量             | 必填 | 说明                                                    |
+| ---------------- | ---- | ------------------------------------------------------- |
+| `ADMIN_PASSWORD` | 否   | 管理面板初始密码；不设置则默认 `admin123`，可登录后修改 |
+| `SESSION_SECRET` | 否   | 会话签名密钥，未设置则自动生成并持久化                  |
+| `HTTP_PORT`      | 否   | 对外端口，默认 `80`                                     |
 
 ## 客户端配置
 
@@ -117,22 +119,24 @@ The proxy core is based on [jb-ai-proxy](https://github.com/Kazuki-0147/jb-ai-pr
 # 1. Download compose file
 curl -O https://raw.githubusercontent.com/ydddp/jb-proxy-r/main/docker-compose.yml
 
-# 2. Set admin password
-echo "ADMIN_PASSWORD=your_password" > .env
-
-# 3. Start
+# 2. Start
 docker compose up -d
 ```
 
-Visit `http://<your-server-ip>` to access the admin panel.
+Visit `http://<your-server-ip>` to access the admin panel. Log in with the default password **`admin123`**, then change it via **Change Password** in the left sidebar.
+
+> To set a password before first launch, create a `.env` file:
+> ```bash
+> echo "ADMIN_PASSWORD=your_password" > .env
+> ```
 
 ### Environment variables
 
-| Variable         | Required    | Description                                       |
-| ---------------- | ----------- | ------------------------------------------------- |
-| `ADMIN_PASSWORD` | Recommended | Admin panel login password                        |
-| `SESSION_SECRET` | No          | Session signing secret; auto-generated if not set |
-| `HTTP_PORT`      | No          | Public web port, default `80`                     |
+| Variable         | Required | Description                                                         |
+| ---------------- | -------- | ------------------------------------------------------------------- |
+| `ADMIN_PASSWORD` | No       | Initial admin password; defaults to `admin123`, changeable in panel |
+| `SESSION_SECRET` | No       | Session signing secret; auto-generated if not set                   |
+| `HTTP_PORT`      | No       | Public web port, default `80`                                       |
 
 ### Client configuration
 
