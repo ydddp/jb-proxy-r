@@ -18,7 +18,7 @@
 
 ```bash
 # 1. 下载部署文件
-curl -O https://raw.githubusercontent.com/ydddp/jb-proxy-release/main/docker-compose.yml
+curl -O https://raw.githubusercontent.com/ydddp/jb-proxy-r/main/docker-compose.yml
 
 # 2. 设置管理面板密码
 echo "ADMIN_PASSWORD=your_password" > .env
@@ -75,7 +75,7 @@ A JetBrains AI API gateway with OpenAI / Anthropic / Responses compatible endpoi
 
 ```bash
 # 1. Download compose file
-curl -O https://raw.githubusercontent.com/ydddp/jb-proxy-release/main/docker-compose.yml
+curl -O https://raw.githubusercontent.com/ydddp/jb-proxy-r/main/docker-compose.yml
 
 # 2. Set admin password
 echo "ADMIN_PASSWORD=your_password" > .env
