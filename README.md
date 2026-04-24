@@ -2,6 +2,8 @@
 
 基于 JetBrains AI 的 API 网关，提供 OpenAI / Anthropic / Responses 兼容接口，附带 Web 管理面板。
 
+反代内核参考自 [jb-ai-proxy](https://github.com/Kazuki-0147/jb-ai-proxy) by [@Kazuki-0147](https://github.com/Kazuki-0147)，在此基础上增加了多账号管理、Web 管理面板、使用统计等功能。
+
 [English](#english)
 
 ## 功能
@@ -46,6 +48,42 @@ docker compose up -d
 
 兼容任何支持 OpenAI / Anthropic 接口的客户端（Cherry Studio、Cursor、Open WebUI 等）。
 
+## 从旧版本迁移（源码部署 → 镜像部署）
+
+**如果你在原来的 `JetBrains-Proxy/` 目录操作**，数据会自动保留，直接执行：
+
+```bash
+docker compose down
+curl -O https://raw.githubusercontent.com/ydddp/jb-proxy-r/main/docker-compose.yml
+docker compose up -d
+```
+
+**如果你换了目录**，需要先导出旧数据再导入：
+
+```bash
+# 1. 停止旧服务（在旧目录执行）
+docker compose down
+
+# 2. 备份旧 volume（volume 名称通常为 <旧目录名小写>_proxy-data）
+docker run --rm \
+  -v jetbrains-proxy_proxy-data:/data \
+  -v $(pwd):/backup \
+  alpine tar czf /backup/proxy-data.tar.gz -C /data .
+
+# 3. 在新目录启动一次（会自动创建新 volume）
+docker compose up -d
+docker compose down
+
+# 4. 将数据导入新 volume
+docker run --rm \
+  -v <新目录名>_proxy-data:/data \
+  -v $(pwd):/backup \
+  alpine tar xzf /backup/proxy-data.tar.gz -C /data
+
+# 5. 启动
+docker compose up -d
+```
+
 ## 更新
 
 ```bash
@@ -68,6 +106,8 @@ docker run --rm \
 ## English
 
 A JetBrains AI API gateway with OpenAI / Anthropic / Responses compatible endpoints and a web admin panel.
+
+The proxy core is based on [jb-ai-proxy](https://github.com/Kazuki-0147/jb-ai-proxy) by [@Kazuki-0147](https://github.com/Kazuki-0147), extended with multi-account management, web admin panel, and usage analytics.
 
 ### Quick start
 
